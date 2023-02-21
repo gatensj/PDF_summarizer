@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>PDF Summarizer</title>
+      <link
+         rel="shortcut icon"
+         href="{{ url_for('static', filename='dog.png') }}"
+         />
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col-12 col-lg-6">
+               <div class="outerFormDiv">
+                  <div class="innerTextDiv">
+                     <h1><span>Summarize My File</span></h1>
+                     <h2><span>Upload a PDF and we’ll summarize it for you. Instantly! </span></h2>
+                  </div>
+                  <div class="innerFormDiv">
+                     <div>
+                        <div id="my-dropzone">
+                           <h3><span class="dropzone-text">Drag file here</span></h3>
+                        </div>
+                        <div id="my-upload">
+                           <h3 class="mb-3">OR	</h3>
+                           <form action="/" method="post" enctype="multipart/form-data">
+                              <input class="form-control mb-5" id="file" name="file" type="file" accept=".pdf"/>
+                              <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% if result %}
+            <div class="col-12 col-lg-6">
+               <div class="outerResultsDiv">
+                  <div class="innerResultsDiv">
+                     <div id="results-div">{{ result }}</div>
+                     <div class="results-buttons-div">
+                        <button id="copyBtn" onclick="copyText()"><i class="bi bi-clipboard-check"></i> <span>Copy</span></button>
+                        <button id="saveBtn" onclick="saveText()"><i class="bi bi-save"></i> <span>Save</span></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% endif %}
+         </div>
+      </div>
+      <script>
+         // Get the drag and drop area and file input element from the DOM
+         const dropzone = document.getElementById('my-dropzone');
+         const fileinput = document.getElementById('file');
+          
+         // Add an event listener for the dragenter event
+         dropzone.addEventListener('dragenter', (event) => {
+           // Prevent the default behavior of the browser
+           event.preventDefault();
+          
+           // Add a CSS class to the drop zone to indicate that it is being hovered over
+           dropzone.classList.add('dragover');
+         });
+          
+         // Add an event listener for the dragover event
+         dropzone.addEventListener('dragover', (event) => {
+           // Prevent the default behavior of the browser
+           event.preventDefault();
+         });
+          
+         // Add an event listener for the drop event
+         dropzone.addEventListener('drop', (event) => {
+           // Prevent the default behavior of the browser
+           event.preventDefault();
+          
+           // Remove the CSS class from the drop zone
+           dropzone.classList.remove('dragover');
+          
+           // Get the selected file from the drop event
+           const file = event.dataTransfer.files[0];
+         
+         // Check if the selected file is a PDF file
+         if (!file || file.type !== 'application/pdf') {
+         // Prevent the form from being submitted
+         event.preventDefault();
+         
+         // Display an error message to the user
+         alert('Please select a PDF file');
+         }		   
+         else{
+         // Add the selected file to the file input element
+         fileinput.files = event.dataTransfer.files;
+         
+         }
+         });
+         
+         // Add an event listener for the form submission event
+         document.querySelector('form').addEventListener('submit', (event) => {
+         // Get the selected file from the file input element
+         const file = fileinput.files[0];
+         
+         // Check if the selected file is a PDF file
+         if (!file || file.type !== 'application/pdf') {
+         // Prevent the form from being submitted
+         event.preventDefault();
+         
+         // Display an error message to the user
+         alert('Please select a PDF file');
+         }
+         });		 
+         
+         function copyText() {
+         /* Get the text from the textarea */
+         var text = document.getElementById("results-div").innerHTML;
+         
+         /* Copy the text to the clipboard */
+         navigator.clipboard.writeText(text).then(function() {
+           console.log('Copy Succeeded: ' + text);
+         }, function() {
+           console.log('Copy Failed!');
+         });
+         }
+         
+         function saveText() {
+         /* Get the text from the textarea */
+         var text = document.getElementById("results-div").innerHTML;
+         
+         /* Create a new Blob object with the text */
+         var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+         
+         /* Create a new URL object with the blob */
+         var url = URL.createObjectURL(blob);
+         
+         /* Create a new anchor element to download the file */
+         var a = document.createElement("a");
+         a.href = url;
+         a.download = "PDF-Summary.txt";
+         a.click();
+         }
+         
+         
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+   </body>
+</html>

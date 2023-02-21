@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2) format("woff2"), url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"), url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+i{
+  padding-right: 5px;
+}
+body, input {
+  font-size: 16px;
+  line-height: 24px;
+  color: #353740;
+  font-family: "ColfaxAI", Helvetica, sans-serif;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+input[type="submit"] {
+  padding: 12px 0;
+  color: #fff;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+body {
+  background: #E5E5E5;
+  font-family:Open Sans;
+  padding-top:50px;
+}
+.outerFormDiv {
+  background-color:rgba(0, 43.00000123679638, 92.00000211596489, 1);
+  width: 100%;
+  padding:50px;
+  min-height: 800px;
+  text-align: center;
+}
+.innerTextDiv {
+  color: white;
+  min-height: 200px;
+}
+.innerFormDiv {
+  background-color:rgba(238.00000101327896, 238.00000101327896, 238.00000101327896, 1);
+  border-radius: 25px;
+  width:100%;
+  box-shadow:0px 4px 30px rgba(0, 0, 0, 0.25);
+  background-color:rgba(255, 255, 255, 1);
+  min-height: 500px;
+  padding:25px 
+}
+.outerResultsDiv {
+  background-color: #eeeeee;
+  width:100%;
+  min-height: 800px;
+  padding:50px;
+  margin-bottom:100px;
+}
+.innerResultsDiv {
+  background-color:rgba(238.00000101327896, 238.00000101327896, 238.00000101327896, 1);
+  border-radius: 25px;
+  width:100%;
+  box-shadow:0px 4px 30px rgba(0, 0, 0, 0.25);
+  background-color:rgba(255, 255, 255, 1);
+  min-height: 700px;
+  padding:25px 
+}
+input[type="submit"] {
+  padding: 12px 0;
+  color: #fff;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+button {
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+#my-dropzone {
+  border:#dee2e6 dashed 1px;
+  border-radius: 25px;
+  width:100%;
+  height: 200px;
+  margin:0px auto 20px auto;
+}
+#my-upload {
+  margin:0px auto;
+}
+.dropzone-text {
+  color:rgba(237.0000010728836, 23.000000528991222, 76.0000030696392, 1);
+  font-family:Open Sans;
+  font-size:48px;
+}
+.results-buttons-div {
+  margin-top:100px;
+}
