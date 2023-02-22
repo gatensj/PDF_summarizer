@@ -15,7 +15,6 @@ def index():
         file = request.files['file']
         file_results = process_file_upload(file)
 
-        '''
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=generate_summary_prompt(file_results),
@@ -25,9 +24,8 @@ def index():
             frequency_penalty=0.0,
             presence_penalty=0.0
         )
-        '''
-        temp = "hello world"
-        return redirect(url_for("index", result=temp))
+
+        return redirect(url_for("index", result=response.choices[0].text))
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
