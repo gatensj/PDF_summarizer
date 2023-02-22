@@ -26,7 +26,8 @@ def index():
             presence_penalty=0.0
         )
         '''
-        return redirect(url_for("index", result=file_results))
+        temp = "hello world"
+        return redirect(url_for("index", result=temp))
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
