@@ -1,9 +1,7 @@
 from flask import Flask, redirect, render_template, request, url_for
 from PyPDF2 import PdfReader
-
 import openai
 import os
-import io
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -15,36 +13,36 @@ def index():
         file = request.files['file']
         file_results = process_file_upload(file)
 
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=generate_summary_prompt(file_results),
-            temperature=0.6,
-            max_tokens=64,
-            top_p=1.0,
-            frequency_penalty=0.0,
-            presence_penalty=0.0
+        if len(file_results) > 5000:
+            file_results = file_results[:5000]
+
+        prompt = f"I am trying to summarize the following file:\n\n{file_results}\n\nMy summary is:"
+
+        completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
         )
 
-        return redirect(url_for("index", result=response.choices[0].text))
+        print(file_results)
+        print(completion)
+
+        summary = completion.choices[0].message.content
+        return redirect(url_for("index", result=summary))
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
 
 
-def generate_summary_prompt(file_results):
-    return """Please provide a list of 3 bullet points that summarize this File.
-File: {}
-"""
-
 def process_file_upload(file):
     # Open the PDF file
-    #pdf = PdfFileReader(file.stream.read())
     pdf = PdfReader(file.stream)
  
     # Get the number of pages in the PDF
     num_pages = len(pdf.pages)
+
     # Initialize a variable to store the text
     text = ""
+
     # Iterate through each page
     for i in range(0, num_pages):
         # Get the page object
@@ -52,5 +50,4 @@ def process_file_upload(file):
         # Extract the text from the page
         text += page.extract_text()
     
-    #text = 'Goodbye moon'
     return text
