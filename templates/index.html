@@ -16,12 +16,16 @@
    <body>
       <div class="container">
          <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-xl-6">
                <div class="outerFormDiv">
                   <div class="innerTextDiv">
-                     <h1><span>Summarize My File</span></h1>
-                     <h2><span>Upload a PDF and we’ll summarize it for you. Instantly! </span></h2>
+                     <div class="outer-image-div"><img class="inner-img" src="{{ url_for('static', filename='dog.png') }}" /></div>
+                     <h1 class="pt-3">
+                        
+                        <span>Summarize My File</span></h1>
+                     <h3 class="clearfix mt-5" style="color: yellow"><span>Upload a PDF and we’ll summarize it! </span></h3>   
                   </div>
+
                   <div class="innerFormDiv">
                      <div>
                         <div id="my-dropzone">
@@ -36,11 +40,12 @@
                         </div>
                      </div>
                   </div>
+
                </div>
             </div>
             {% if result %}
-            <div class="col-12 col-lg-6">
-               <div class="outerResultsDiv">
+            <div class="col-12 col-xl-6">
+               <div class="outerResultsDiv mt-5 mt-xl-0">
                   <div class="innerResultsDiv">
                      <div id="results-div">{{ result }}</div>
                      <div class="results-buttons-div">
